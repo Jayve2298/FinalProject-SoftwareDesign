@@ -33,6 +33,9 @@ namespace FinalProject_Jenotan.ViewModel.Motorpool
             LogoutCommand = new RelayCommand(ExecuteLogout);
         }
 
+        public string FullName => $"{_mechanic.FName[0]}.{_mechanic.LName}";
+        public string Email => _mechanic.Email;
+
         private void OpenMaintenance(object obj)
         {
             _frame.Navigate(new MechanicMaintenancePage(_mechanic));
