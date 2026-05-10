@@ -1,0 +1,353 @@
+﻿<Window x:Class="FinalProject_Jenotan.UI.EditWindow.DeanEditWindows.DeanEditFacultyWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+         xmlns:cmd="clr-namespace:FinalProject_Jenotan.Commands"
+        xmlns:converters="clr-namespace:FinalProject_Jenotan.Commands"
+        xmlns:local="clr-namespace:FinalProject_Jenotan.UI.EditWindow.DeanEditWindows"
+        mc:Ignorable="d"
+        Title="Edit Faculty" Height="450" Width="800"
+        Background="#f5c3c3"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterOwner">
+    <Window.Resources>
+        <cmd:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:BoolToStatusConverter x:Key="BoolToStatusConverter"/>
+        <converters:BoolToStatusConverter x:Key="BoolToStatussColorConverter"/>
+        <converters:FacultyNameInitialConverter x:Key="FacultyNameInitialConverter"/>
+        <converters:FacultyFullNameConverter x:Key="FacultyFullNameConverter"/>
+    </Window.Resources>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="0.05*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="0.05*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.05*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="0.05*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="1" Grid.Column="3" Background="#f9dcdc">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.015*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.015*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.05*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="0.05*"/>
+            </Grid.RowDefinitions>
+
+            <Grid Grid.Row="3" Grid.Column="1">
+                <ListView ItemsSource="{Binding ActiveDepartments}"
+                  SelectedItem="{Binding SelectedDepartment, Mode=TwoWay}"
+                          IsEnabled="{Binding CanChangeDepartment}"
+                     Background="#f5c3c3"
+                     BorderThickness="0"
+                     HorizontalContentAlignment="Stretch" Grid.ColumnSpan="2" Margin="0,5,0,5" Grid.RowSpan="3" SelectionChanged="ListView_SelectionChanged">
+
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem">
+                            <Setter Property="Background" Value="#f5c3c3"/>
+                            <Setter Property="BorderThickness" Value="0"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Padding="10" Background="#f5c3c3">
+                                <StackPanel>
+
+                                    <!-- Department Name -->
+                                    <TextBlock FontSize="18"
+                                   FontWeight="Bold"
+                                   Text="{Binding DepartmentName}" />
+
+                                    <!-- Optional: Department ID -->
+                                    <TextBlock FontSize="14"
+                                         Text="{Binding DepartmentId, StringFormat=ID: {0}}" />
+
+                                </StackPanel>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+
+                </ListView>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="1">
+                        <TextBlock Text="Active Departments:" VerticalAlignment="Bottom"
+                           FontSize="18"></TextBlock>
+                    </Grid>
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="0.25*"/>
+
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.Row="1">
+                        <TextBox>
+                            <TextBox.Style>
+                                <Style TargetType="TextBox">
+                                    <Setter Property="Template">
+                                        <Setter.Value>
+                                            <ControlTemplate TargetType="TextBox">
+                                                <Grid>
+                                                    <ScrollViewer x:Name="PART_ContentHost"/>
+
+                                                    <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                                 Background="#f5c3c3"
+                                                 FontSize="18"
+                                                 HorizontalContentAlignment="Left"
+                                                 VerticalContentAlignment="Center"
+                                                 Padding="10,0,0,0"/>
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Setter.Value>
+                                    </Setter>
+                                </Style>
+                            </TextBox.Style>
+                        </TextBox>
+                    </Grid>
+
+                </Grid>
+            </Grid>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1" Background="#f9dcdc">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.05*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="0.05*"/>
+
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Faculty Name:" FontSize="20"
+                       VerticalAlignment="Bottom"></TextBlock>
+
+                    <TextBox Grid.Row="1"
+                             x:Name="TxtFullName"
+                         Background="#edb2b2"
+                         FontSize="15"
+                         VerticalContentAlignment="Center"
+                          IsReadOnly="True"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Text="Change Department" FontSize="20"
+                     VerticalAlignment="Bottom"></TextBlock>
+
+                    <TextBox Grid.Row="1"
+                         Background="#edb2b2"
+                         FontSize="15"
+                         VerticalContentAlignment="Center"
+                         Text="{Binding DisplayDepartmentId}"
+                         IsEnabled="{Binding CanChangeDepartment}"
+                         IsReadOnly="True"/>
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.5*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <ComboBox ItemsSource="{Binding FacultyStatus}"
+                          SelectedItem="{Binding SelectedStatus}"
+                          Width="225"
+                          HorizontalAlignment="Right"
+                          Grid.Column="1"
+                          Grid.Row="1"/>
+                </Grid>
+
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="160*"/>
+                        <ColumnDefinition Width="71*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                </Grid>
+            </Grid>
+
+            <Grid Grid.Row="2" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="0.05*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="0.15*"/>
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="2" Grid.Column="0">
+                    <Button Content="Confirm"
+                          x:Name="ConfirmButton"
+                             FontSize="15"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          BorderThickness="0"
+                          FocusVisualStyle="{x:Null}"
+                          Command="{Binding ConfirmCommand}" Grid.Column="1" Click="ConfirmButton_Click">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+
+                                <Border x:Name="border"
+                                 Background="#EDB2B2">
+
+                                    <ContentPresenter HorizontalAlignment ="Center"
+                                  VerticalAlignment="Center"/>
+
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border"
+                                     Property="Background"
+                                    Value="#EDB2B2"/>
+                                    </Trigger>
+
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border"
+                                   Property="Background"
+                                         Value="#E6A8A8"/>
+                                    </Trigger>
+
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter TargetName="border"
+                                       Property="BorderThickness"
+                                       Value="0"/>
+                                    </Trigger>
+
+
+
+                                </ControlTemplate.Triggers>
+
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+                </Grid>
+
+                <Grid Grid.Row="2" Grid.Column="2">
+                    <Button Content="Cancel"
+                          x:Name="CancelButton"
+                             FontSize="15"
+                          HorizontalAlignment="Stretch"
+                          VerticalAlignment="Stretch"
+                          BorderThickness="0"
+                          FocusVisualStyle="{x:Null}"
+                          Command="{Binding CancelCommand}" Grid.Column="1">
+
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+
+                                <Border x:Name="border"
+                             Background="#EDB2B2">
+
+                                    <ContentPresenter HorizontalAlignment ="Center"
+                              VerticalAlignment="Center"/>
+
+                                </Border>
+
+                                <ControlTemplate.Triggers>
+
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border"
+                                     Property="Background"
+                                    Value="#EDB2B2"/>
+                                    </Trigger>
+
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border"
+                                   Property="Background"
+                                         Value="#E6A8A8"/>
+                                    </Trigger>
+
+                                    <Trigger Property="IsFocused" Value="True">
+                                        <Setter TargetName="border"
+                                       Property="BorderThickness"
+                                       Value="0"/>
+                                    </Trigger>
+
+
+
+                                </ControlTemplate.Triggers>
+
+                            </ControlTemplate>
+                        </Button.Template>
+
+                    </Button>
+
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

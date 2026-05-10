@@ -1,0 +1,157 @@
+﻿<Page x:Class="FinalProject_Jenotan.UI.EditWindow.FormsWindow.FacultyForms.FacultyOnGoingPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:FinalProject_Jenotan.UI.EditWindow.FormsWindow.FacultyForms"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Background="#f9dcdc"
+      Title="CompletionFormPage"  xmlns:cmd="clr-namespace:FinalProject_Jenotan.Commands"
+         xmlns:converters="clr-namespace:FinalProject_Jenotan.Commands">
+
+    <Page.Resources>
+        <cmd:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+        <converters:BoolToStatusConverter x:Key="BoolToStatusConverter"/>
+        <converters:BoolToStatusConverter x:Key="BoolToStatussColorConverter"/>
+        <converters:NullToBoolConverter x:Key="NullToBoolConverter"/>
+        <converters:FacultyNameInitialConverter x:Key="FacultyNameInitialConverter"/>
+        <converters:FacultyFullNameConverter x:Key="FacultyFullNameConverter"/>
+    </Page.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="0.15*"></RowDefinition>
+            <RowDefinition Height="9*"></RowDefinition>
+            <RowDefinition Height="0.15*"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+
+            <TextBlock Text="OnGoing Trips:" HorizontalAlignment="Left"
+               VerticalAlignment="Bottom" FontSize="30"></TextBlock>
+            <!--
+        <TextBox Margin="600,20,0,0">
+            <TextBox.Style>
+                <Style TargetType="TextBox">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TextBox">
+                                <Grid>
+                                    <ScrollViewer x:Name="PART_ContentHost"/>
+
+                                    <TextBox Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"
+                                      Background="#f5c3c3"
+                                      FontSize="18"
+                                      HorizontalContentAlignment="Left"
+                                      VerticalContentAlignment="Center"
+                                      Padding="10,0,0,0"/>
+                                </Grid>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+        -->
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <ListView ItemsSource="{Binding CheckoutFormList}"
+   
+                     SelectedItem="{Binding SelectedCheckOut, Mode=TwoWay}"
+                      Background="#f5c3c3"
+                      BorderThickness="0"
+                      HorizontalContentAlignment="Stretch">
+
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="Background" Value="#f5c3c3"/>
+                        <Setter Property="BorderThickness" Value="0"/>
+                    </Style>
+                </ListView.ItemContainerStyle>
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Padding="10" Background="#f5c3c3">
+                            <StackPanel>
+
+                                <TextBlock Foreground="Black"
+                          FontSize="20" FontWeight="Bold"
+                              Text="{Binding CheckoutId, StringFormat=Checkout Id: {0}}"  >
+                                </TextBlock>
+                                <TextBlock FontSize="15" FontWeight="SemiBold"
+                             Text="{Binding RFormId, StringFormat=Reservation Id: {0}}" />
+                                <TextBlock FontSize="12" 
+                             Text="{Binding EmployeeId, StringFormat=Approved By: {0}}" />
+                            </StackPanel>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
+        </Grid>
+
+        <Grid Grid.Row="4">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="0.025*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="0.025*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="0.025*"></ColumnDefinition>
+                <ColumnDefinition Width="2*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Button Content="Complete"
+             x:Name="CompleteButton"
+             FontSize="15"
+             BorderThickness="0"
+             FocusVisualStyle="{x:Null}"
+             Command="{Binding CompleteCommand}" Grid.Column="0">
+
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+
+                        <Border x:Name="border"
+                          Background="#EDB2B2">
+
+                            <ContentPresenter HorizontalAlignment ="Center"
+                          VerticalAlignment="Center"/>
+
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border"
+                                Property="Background"
+                               Value="#EDB2B2"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border"
+                              Property="Background"
+                                    Value="#E6A8A8"/>
+                            </Trigger>
+
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border"
+                              Property="BorderThickness"
+                              Value="0"/>
+                            </Trigger>
+
+
+
+                        </ControlTemplate.Triggers>
+
+                    </ControlTemplate>
+                </Button.Template>
+
+            </Button>
+        </Grid>
+    </Grid>
+</Page>
