@@ -296,11 +296,9 @@
 
                 <Grid Grid.Column="2">
                     <StackPanel Grid.Column="1">
-                        <TextBlock Text="{Binding FullName}" FontSize="25" FontWeight="Bold"/>
-                        <TextBlock Text="{Binding Role}" FontSize="18"/>
-                        <TextBlock Text="{Binding SchoolName}" FontSize="14"/>
-                        <TextBlock Text="{Binding DepartmentName}" FontSize="14"/>
-
+                        <TextBlock Text="{Binding LName}" FontSize="25" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding Email}" FontSize="14"/>
+                        <TextBlock Text="{Binding IsActive}" FontSize="14"/>
                     </StackPanel>
                 </Grid>
             </Grid>
